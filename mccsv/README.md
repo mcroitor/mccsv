@@ -8,10 +8,10 @@ mc::csv _csv(filename, delimiter);
 /* // equivalent with
 mc::csv _csv;
 _csv.read(filename, delimiter);
+*/
 for(mc::cell_t cell: _csv.column("column_name")){
     std::cout << cell << " ";
 }
-*/
 ```
 ## Library interface
 ```C++
