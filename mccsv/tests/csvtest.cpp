@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
  * File:   csvtest.cpp
  * Author: mcroitor
@@ -11,7 +5,7 @@
  * Created on 26 decembrie 2017, 17:00
  */
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <iostream>
 #include "mccsv.h"
 
