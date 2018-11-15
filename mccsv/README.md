@@ -13,7 +13,7 @@ for(mc::cell_t cell: _csv.column("column_name")){
 }
 */
 ```
-## Interface of class Properties
+## Library interface
 ```C++
 typedef std::wstring string;
 
