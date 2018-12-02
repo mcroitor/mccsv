@@ -40,16 +40,16 @@ namespace mc {
         string line;
         std::getline(fin, line);
         row_t header = split(line, delimiter);
-        std::cout << ">>> nr. of columns = " << header.size() << std::endl;
+        //std::cout << ">>> nr. of columns = " << header.size() << std::endl;
         for (cell_t column_name : header) {
-            table.insert(std::make_pair(column_name, row_t()));
+            table.insert(std::make_pair(column_name, column_t()));
         }
         // read lines
         while (std::getline(fin, line)) {
             row_t row = split(line, delimiter);
-            
+
             size_t i = 0;
-            for(i = 0; i != row.size(); ++i){
+            for (i = 0; i != row.size(); ++i) {
                 table.at(header.at(i)).push_back(row[i]);
             }
         }
@@ -87,10 +87,18 @@ namespace mc {
         return table.at(column_name);
     }
 
+    column_t csv::column(size_t column_index) const {
+        return table.at(this->header()[column_index]);
+    }
+
     // TODO #3: assert error
 
     cell_t csv::cell(cell_t column_name, size_t row_index) const {
         return column(column_name)[row_index];
+    }
+
+    cell_t csv::cell(size_t column_index, size_t row_index) const {
+        return column(column_index)[row_index];
     }
 
     size_t csv::nr_columns() const {
@@ -98,6 +106,9 @@ namespace mc {
     }
 
     size_t csv::nr_rows() const {
+        if(nr_columns() == 0){
+            return 0;
+        }
         return this->table.begin()->second.size();
     }
 }

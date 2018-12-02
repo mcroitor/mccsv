@@ -13,111 +13,147 @@
  * Simple C++ Test Suite
  */
 
-void testCsv() {
-    std::string p0 = "example.csv";
-    char p1 = ';';
-    mc::csv _csv(p0, p1);
-    if (true /*check result*/) {
-        std::cout << "%TEST_FAILED% time=0 testname=testCsv (csvtest) message=error message sample" << std::endl;
-    }
-}
+using string = mc::string;
 
 void testRead() {
-    std::string p0;
-    char p1;
-    mc::csv _csv;
-    _csv.read(p0, p1);
-    if (true /*check result*/) {
-        std::cout << "%TEST_FAILED% time=0 testname=testRead (csvtest) message=error message sample" << std::endl;
+    std::string filename = "example.csv";
+    char separator = ';';
+    mc::csv _csv(filename, separator);
+    if (_csv.nr_columns() != 3) {
+        std::cout << "%TEST_FAILED% time=0 testname=testCsv (csvtest) message=incorrect nr. of columns" << std::endl;
+        return;
+    } else {
+        std::cout << "%TEST_SUCCESSFULL% time=0 testname=testCsv (csvtest) message=passed" << std::endl;
+    }
+    if (_csv.nr_rows() != 4) {
+        std::cout << "%TEST_FAILED% time=0 testname=testCsv (csvtest) message=incorrect nr. or fows" << std::endl;
+    } else {
+        std::cout << "%TEST_SUCCESSFULL% time=0 testname=testCsv (csvtest) message=passed" << std::endl;
     }
 }
 
 void testClear() {
-    mc::csv _csv;
+    std::string filename = "example.csv";
+    char separator = ';';
+    mc::csv _csv(filename, separator);
     _csv.clear();
-    if (true /*check result*/) {
+    if (_csv.nr_columns() != 0 || _csv.nr_rows() != 0) {
         std::cout << "%TEST_FAILED% time=0 testname=testClear (csvtest) message=error message sample" << std::endl;
+    } else {
+        std::cout << "%TEST_SUCCESSFULL% time=0 testname=testClear (csvtest) message=passed" << std::endl;
     }
 }
 
 void testHeader() {
-    mc::csv _csv;
+    std::string filename = "example.csv";
+    char separator = ';';
+    mc::csv _csv(filename, separator);
     mc::row_t result = _csv.header();
-    if (true /*check result*/) {
+    if (result[0] != L"first" || result[1] != L"second" || result[2] != L"third") {
         std::cout << "%TEST_FAILED% time=0 testname=testHeader (csvtest) message=error message sample" << std::endl;
+    } else {
+        std::cout << "%TEST_SUCCESSFULL% time=0 testname=testHeader (csvtest) message=passed" << std::endl;
     }
 }
 
 void testRow() {
-    size_t p0;
-    mc::csv _csv;
+    size_t p0 = 1;
+    std::string filename = "example.csv";
+    char separator = ';';
+    mc::csv _csv(filename, separator);
     mc::row_t result = _csv.row(p0);
-    if (true /*check result*/) {
+    if (result[0] != L"4" || result[1] != L"5" || result[2] != L"6") {
         std::cout << "%TEST_FAILED% time=0 testname=testRow (csvtest) message=error message sample" << std::endl;
+    } else {
+        std::cout << "%TEST_SUCCESSFULL% time=0 testname=testRow (csvtest) message=passed" << std::endl;
     }
 }
 
 void testColumn() {
-    std::string p0;
-    mc::csv _csv;
-    mc::column_t result = _csv.column(p0);
-    if (true /*check result*/) {
+    string header_name = L"second";
+    std::string filename = "example.csv";
+    char separator = ';';
+    mc::csv _csv(filename, separator);
+    mc::column_t result = _csv.column(header_name);
+    if (result.size() != 4) {
         std::cout << "%TEST_FAILED% time=0 testname=testColumn (csvtest) message=error message sample" << std::endl;
+        return;
+    }
+    if (result[0] != L"2" || result[1] != L"5" || result[2] != L"8" || result[3] != L"11") {
+        std::cout << "%TEST_FAILED% time=0 testname=testColumn (csvtest) message=error message sample" << std::endl;
+    } else {
+        std::cout << "%TEST_SUCCESSFULL% time=0 testname=testColumn (csvtest) message=passed" << std::endl;
     }
 }
 
 void testColumn2() {
-    size_t p0;
-    mc::csv _csv;
-    mc::column_t result = _csv.column(p0);
-    if (true /*check result*/) {
+    size_t column_index = 0;
+    std::string filename = "example.csv";
+    char separator = ';';
+    mc::csv _csv(filename, separator);
+    mc::column_t result = _csv.column(column_index);
+    if (result[0] != L"1" || result[1] != L"4" || result[2] != L"7" || result[3] != L"10") {
         std::cout << "%TEST_FAILED% time=0 testname=testColumn2 (csvtest) message=error message sample" << std::endl;
+    } else {
+        std::cout << "%TEST_SUCCESSFULL% time=0 testname=testColumn2 (csvtest) message=passed" << std::endl;
     }
 }
 
 void testCell() {
-    std::string p0;
-    size_t p1;
-    mc::csv _csv;
-    mc::cell_t result = _csv.cell(p0, p1);
-    if (true /*check result*/) {
+    string column_name = L"first";
+    size_t row_index = 2;
+    std::string filename = "example.csv";
+    char separator = ';';
+    mc::csv _csv(filename, separator);
+    mc::cell_t result = _csv.cell(column_name, row_index);
+    if (result != L"7") {
         std::cout << "%TEST_FAILED% time=0 testname=testCell (csvtest) message=error message sample" << std::endl;
+    } else {
+        std::cout << "%TEST_SUCCESSFULL% time=0 testname=testCell (csvtest) message=passed" << std::endl;
     }
 }
 
 void testCell2() {
-    size_t p0;
-    size_t p1;
-    mc::csv _csv;
-    mc::cell_t result = _csv.cell(p0, p1);
-    if (true /*check result*/) {
+    size_t column_index = 2;
+    size_t row_index = 3;
+    std::string filename = "example.csv";
+    char separator = ';';
+    mc::csv _csv(filename, separator);
+    mc::cell_t result = _csv.cell(column_index, row_index);
+    if (result != L"12") {
         std::cout << "%TEST_FAILED% time=0 testname=testCell2 (csvtest) message=error message sample" << std::endl;
+    } else {
+        std::cout << "%TEST_SUCCESSFULL% time=0 testname=testCell2 (csvtest) message=passed" << std::endl;
     }
 }
 
 void testNr_columns() {
-    mc::csv _csv;
+    std::string filename = "example.csv";
+    char separator = ';';
+    mc::csv _csv(filename, separator);
     size_t result = _csv.nr_columns();
-    if (true /*check result*/) {
-        std::cout << "%TEST_FAILED% time=0 testname=testNr_columns (csvtest) message=error message sample" << std::endl;
+    if (result != 3) {
+        std::cout << "%TEST_FAILED% time=0 testname=testNr_columns (csvtest) message=nr of columns error" << std::endl;
+    } else {
+        std::cout << "%TEST_SUCCESSFULL% time=0 testname=testNr_columns (csvtest) message=passed" << std::endl;
     }
 }
 
 void testNr_rows() {
-    mc::csv _csv;
+    std::string filename = "example.csv";
+    char separator = ';';
+    mc::csv _csv(filename, separator);
     size_t result = _csv.nr_rows();
-    if (true /*check result*/) {
-        std::cout << "%TEST_FAILED% time=0 testname=testNr_rows (csvtest) message=error message sample" << std::endl;
+    if (result != 4) {
+        std::cout << "%TEST_FAILED% time=0 testname=testNr_rows (csvtest) message=nr of rows error" << std::endl;
+    } else {
+        std::cout << "%TEST_SUCCESSFULL% time=0 testname=testNr_rows (csvtest) message=passed" << std::endl;
     }
 }
 
 int main(int argc, char** argv) {
     std::cout << "%SUITE_STARTING% csvtest" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
-
-    std::cout << "%TEST_STARTED% testCsv (csvtest)" << std::endl;
-    testCsv();
-    std::cout << "%TEST_FINISHED% time=0 testCsv (csvtest)" << std::endl;
 
     std::cout << "%TEST_STARTED% testRead (csvtest)" << std::endl;
     testRead();
