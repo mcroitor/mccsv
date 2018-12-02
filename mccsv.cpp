@@ -45,12 +45,7 @@ namespace mc {
             table.insert(std::make_pair(column_name, row_t()));
         }
         // read lines
-//        size_t index = 1;
-
         while (std::getline(fin, line)) {
-//            std::cout << ">>> line = " << index << std::endl;
-//            ++index;
-//            std::wcout << L">>> source = " << line << std::endl;
             row_t row = split(line, delimiter);
             
             size_t i = 0;
