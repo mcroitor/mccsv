@@ -49,7 +49,7 @@ namespace mc {
         }
         else {
             // TODO#: create custom header, as column1, column2, ... , column<n>
-            throw std::bad_exception("not implemented yet");
+            throw std::runtime_error("not implemented yet");
         }
         // read lines
         while (std::getline(fin, line)) {

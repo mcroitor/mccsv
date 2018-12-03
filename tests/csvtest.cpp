@@ -20,13 +20,13 @@ void testRead() {
     char separator = ';';
     mc::csv _csv(filename, separator);
     if (_csv.nr_columns() != 3) {
-        std::cout << "%TEST_FAILED% time=0 testname=testCsv (csvtest) message=incorrect nr. of columns" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testCsv (csvtest) message=invalid columns number" << std::endl;
         return;
     } else {
         std::cout << "%TEST_SUCCESSFULL% time=0 testname=testCsv (csvtest) message=passed" << std::endl;
     }
     if (_csv.nr_rows() != 4) {
-        std::cout << "%TEST_FAILED% time=0 testname=testCsv (csvtest) message=incorrect nr. or fows" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testCsv (csvtest) message=invalid rows number" << std::endl;
     } else {
         std::cout << "%TEST_SUCCESSFULL% time=0 testname=testCsv (csvtest) message=passed" << std::endl;
     }
@@ -38,7 +38,7 @@ void testClear() {
     mc::csv _csv(filename, separator);
     _csv.clear();
     if (_csv.nr_columns() != 0 || _csv.nr_rows() != 0) {
-        std::cout << "%TEST_FAILED% time=0 testname=testClear (csvtest) message=error message sample" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testClear (csvtest) message=invalid data clearing" << std::endl;
     } else {
         std::cout << "%TEST_SUCCESSFULL% time=0 testname=testClear (csvtest) message=passed" << std::endl;
     }
@@ -49,8 +49,12 @@ void testHeader() {
     char separator = ';';
     mc::csv _csv(filename, separator);
     mc::row_t result = _csv.header();
+    if (result.size() != 3) {
+        std::cout << "%TEST_FAILED% time=0 testname=testHeader (csvtest) message=invalid columns number" << std::endl;
+        return;
+    }
     if (result[0] != L"first" || result[1] != L"second" || result[2] != L"third") {
-        std::cout << "%TEST_FAILED% time=0 testname=testHeader (csvtest) message=error message sample" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testHeader (csvtest) message=invalid header reading" << std::endl;
     } else {
         std::cout << "%TEST_SUCCESSFULL% time=0 testname=testHeader (csvtest) message=passed" << std::endl;
     }
@@ -62,8 +66,12 @@ void testRow() {
     char separator = ';';
     mc::csv _csv(filename, separator);
     mc::row_t result = _csv.row(p0);
+    if (result.size() != 3) {
+        std::cout << "%TEST_FAILED% time=0 testname=testRow (csvtest) message=invalid number of elements in row" << std::endl;
+        return;
+    }
     if (result[0] != L"4" || result[1] != L"5" || result[2] != L"6") {
-        std::cout << "%TEST_FAILED% time=0 testname=testRow (csvtest) message=error message sample" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testRow (csvtest) message=invalid row reading" << std::endl;
     } else {
         std::cout << "%TEST_SUCCESSFULL% time=0 testname=testRow (csvtest) message=passed" << std::endl;
     }
@@ -76,11 +84,11 @@ void testColumn() {
     mc::csv _csv(filename, separator);
     mc::column_t result = _csv.column(header_name);
     if (result.size() != 4) {
-        std::cout << "%TEST_FAILED% time=0 testname=testColumn (csvtest) message=error message sample" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testColumn (csvtest) message=invalid number of elements in column" << std::endl;
         return;
     }
     if (result[0] != L"2" || result[1] != L"5" || result[2] != L"8" || result[3] != L"11") {
-        std::cout << "%TEST_FAILED% time=0 testname=testColumn (csvtest) message=error message sample" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testColumn (csvtest) message=invalid column reading" << std::endl;
     } else {
         std::cout << "%TEST_SUCCESSFULL% time=0 testname=testColumn (csvtest) message=passed" << std::endl;
     }
@@ -92,8 +100,12 @@ void testColumn2() {
     char separator = ';';
     mc::csv _csv(filename, separator);
     mc::column_t result = _csv.column(column_index);
+    if (result.size() != 4) {
+        std::cout << "%TEST_FAILED% time=0 testname=testColumn2 (csvtest) message=invalid number of elements in column" << std::endl;
+        return;
+    }
     if (result[0] != L"1" || result[1] != L"4" || result[2] != L"7" || result[3] != L"10") {
-        std::cout << "%TEST_FAILED% time=0 testname=testColumn2 (csvtest) message=error message sample" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testColumn2 (csvtest) message=invalid column reading" << std::endl;
     } else {
         std::cout << "%TEST_SUCCESSFULL% time=0 testname=testColumn2 (csvtest) message=passed" << std::endl;
     }
@@ -107,7 +119,7 @@ void testCell() {
     mc::csv _csv(filename, separator);
     mc::cell_t result = _csv.cell(column_name, row_index);
     if (result != L"7") {
-        std::cout << "%TEST_FAILED% time=0 testname=testCell (csvtest) message=error message sample" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testCell (csvtest) message=invalid cell reading" << std::endl;
     } else {
         std::cout << "%TEST_SUCCESSFULL% time=0 testname=testCell (csvtest) message=passed" << std::endl;
     }
@@ -121,7 +133,7 @@ void testCell2() {
     mc::csv _csv(filename, separator);
     mc::cell_t result = _csv.cell(column_index, row_index);
     if (result != L"12") {
-        std::cout << "%TEST_FAILED% time=0 testname=testCell2 (csvtest) message=error message sample" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testCell2 (csvtest) message=invalid cell reading" << std::endl;
     } else {
         std::cout << "%TEST_SUCCESSFULL% time=0 testname=testCell2 (csvtest) message=passed" << std::endl;
     }
