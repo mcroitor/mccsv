@@ -5,11 +5,8 @@ A simple library for reading csv files. Is defined in mc namespace.
 std::string filename = "example.csv";
 char delimiter = ';';
 mc::csv _csv(filename, delimiter);
-/* // equivalent with
-mc::csv _csv;
-_csv.read(filename, delimiter);
-*/
-for(mc::cell_t cell: _csv.column("column_name")){
+
+for(mc::cell_t cell: _csv.column(L"column_name")){
     std::cout << cell << " ";
 }
 ```

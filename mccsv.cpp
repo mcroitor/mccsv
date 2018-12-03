@@ -26,23 +26,30 @@ namespace mc {
         return result;
     }
 
-    csv::csv(const std::string& filename, char delimiter) {
-        read(filename, delimiter);
+    csv::csv(const std::string& filename, char delimiter, bool has_header) {
+        read(filename, delimiter, has_header);
     }
 
     // TODO #: assert errors
 
-    void csv::read(std::string filename, char delimiter) {
+    void csv::read(std::string filename, char delimiter, bool has_header) {
         //setlocale(LC_ALL, "Russian");
         clear();
         std::wifstream fin(filename.c_str());
-        // read header
         string line;
-        std::getline(fin, line);
-        row_t header = split(line, delimiter);
-        //std::cout << ">>> nr. of columns = " << header.size() << std::endl;
-        for (cell_t column_name : header) {
-            table.insert(std::make_pair(column_name, column_t()));
+        row_t header;
+        
+        // read header
+        if (has_header == true) {
+            std::getline(fin, line);
+            header = split(line, delimiter);
+            for (cell_t column_name : header) {
+                table.insert(std::make_pair(column_name, column_t()));
+            }
+        }
+        else {
+            // TODO#: create custom header, as column1, column2, ... , column<n>
+            throw std::bad_exception("not implemented yet");
         }
         // read lines
         while (std::getline(fin, line)) {
@@ -106,7 +113,7 @@ namespace mc {
     }
 
     size_t csv::nr_rows() const {
-        if(nr_columns() == 0){
+        if (nr_columns() == 0) {
             return 0;
         }
         return this->table.begin()->second.size();

@@ -13,6 +13,8 @@ namespace mc{
     typedef string cell_t;
     typedef std::deque<cell_t> column_t;
     typedef std::deque<cell_t> row_t;
+    
+    // TODO #: map sorts elements, rewrite deque<pair>
     typedef std::map<cell_t, column_t> table_t;
     
     void print_row(const row_t& );
@@ -21,8 +23,8 @@ namespace mc{
         table_t table;
         
     public:
-        csv(const std::string& /* filename */, char /* delimiter*/ = ';');
-        void read(std::string /* filename */, char /* delimiter*/ = ';');
+        csv(const std::string& /* filename */, char /* delimiter */ = ';', bool /* has_header */ = true);
+        void read(std::string /* filename */, char /* delimiter */ = ';', bool /* has_header */ = true);
         void clear();
         row_t header() const;
         row_t row(size_t /* row_index */) const;
