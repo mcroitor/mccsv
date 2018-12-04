@@ -10,6 +10,9 @@ for(mc::cell_t cell: _csv.column(L"column_name")){
     std::cout << cell << " ";
 }
 ```
+Important notice:
+ 1) column names are stored on __wstring__ standard type.
+ 2) some additional types are defined for readability, such as __cell_t__, __column_t__, __row_t__
 ## Library interface
 ```C++
 typedef std::wstring string;
