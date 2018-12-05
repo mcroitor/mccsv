@@ -17,11 +17,12 @@ namespace mc{
     // TODO #: map sorts elements, rewrite deque<pair>
     typedef std::map<cell_t, column_t> table_t;
     
-    void print_row(const row_t& );
-    
     class DLL_EXPORT csv{
-        table_t table;
+        table_t table_;
+        // speed up
+        row_t header_;
         
+        void build_header(size_t /* nr_columns */);
     public:
         csv(const std::string& /* filename */, char /* delimiter */ = ';', bool /* has_header */ = true);
         void read(std::string /* filename */, char /* delimiter */ = ';', bool /* has_header */ = true);
@@ -36,6 +37,8 @@ namespace mc{
         size_t nr_columns() const;
         size_t nr_rows() const;
     };
+    
+    std::wostream& operator<<(std::wostream& /* out */, const row_t& /* row */);
 }
 
 #endif /* CSV_H */

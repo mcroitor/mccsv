@@ -4,18 +4,13 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
+#include <iterator>
 
 #include "mccsv.h"
 
 namespace mc {
 
-    void print_row(const mc::row_t& row) {
-        size_t i = 0;
-        for (; i != row.size(); ++i) {
-            std::wcout << row.at(i) << L"\t";
-        }
-        std::wcout << std::endl;
-    }
+    // helpers
 
     row_t split(string text, char delimiter) {
         row_t result;
@@ -28,62 +23,66 @@ namespace mc {
         return result;
     }
 
+    //private methods
+
+    void csv::build_header(size_t nr_columns) {
+        for (size_t index = 1; index <= nr_columns; ++index) {
+            header_.push_back(L"column" + std::to_wstring(index));
+        }
+    }
+    //public methods
+
     csv::csv(const std::string& filename, char delimiter, bool has_header) {
         read(filename, delimiter, has_header);
     }
 
-    // TODO #: assert errors
-
     void csv::read(std::string filename, char delimiter, bool has_header) {
-        //setlocale(LC_ALL, "Russian");
         clear();
         std::wifstream fin(filename.c_str());
         string line;
-        row_t header;
         
-        // read header
+        std::getline(fin, line);
+        // prepare header
+        row_t row = split(line, delimiter);
+        build_header(row.size());
         if (has_header == true) {
-            std::getline(fin, line);
-            header = split(line, delimiter);
-            for (cell_t column_name : header) {
-                table.insert(std::make_pair(column_name, column_t()));
-            }
+            std::copy(row.begin(), row.end(), header_.begin());
         }
-        else {
-            // TODO#: create custom header, as column1, column2, ... , column<n>
-            throw std::runtime_error("not implemented yet");
+        
+        for (cell_t column_name : header_) {
+            table_.insert(std::make_pair(column_name, column_t()));
         }
         // read lines
-        while (std::getline(fin, line)) {
-            row_t row = split(line, delimiter);
-
+        if (has_header == false) {
             size_t i = 0;
             for (i = 0; i != row.size(); ++i) {
-                table.at(header.at(i)).push_back(row[i]);
+                table_.at(header_[i]).push_back(row[i]);
+            }
+        }
+        while (std::getline(fin, line)) {
+            row_t row = split(line, delimiter);
+            size_t i = 0;
+            for (i = 0; i != row.size(); ++i) {
+                table_.at(header_[i]).push_back(row[i]);
             }
         }
     }
 
     void csv::clear() {
-        table.clear();
+        table_.clear();
+        header_.clear();
     }
 
     row_t csv::header() const {
-        row_t keys;
-        table_t::const_iterator i = table.begin();
-        while (i != table.end()) {
-            keys.push_back(i->first);
-            ++i;
-        }
-        return keys;
+        return header_;
     }
 
     // TODO #1: assert error
 
     row_t csv::row(size_t row_index) const {
         row_t result;
-        table_t::const_iterator i = table.begin();
-        while (i != table.end()) {
+        table_t::const_iterator i = table_.begin();
+        while (i != table_.end()) {
             result.push_back(i->second[row_index]);
             ++i;
         }
@@ -93,11 +92,11 @@ namespace mc {
     // TODO #2: assert error
 
     column_t csv::column(cell_t column_name) const {
-        return table.at(column_name);
+        return table_.at(column_name);
     }
 
     column_t csv::column(size_t column_index) const {
-        return table.at(this->header()[column_index]);
+        return table_.at(this->header()[column_index]);
     }
 
     // TODO #3: assert error
@@ -111,13 +110,18 @@ namespace mc {
     }
 
     size_t csv::nr_columns() const {
-        return this->table.size();
+        return this->table_.size();
     }
 
     size_t csv::nr_rows() const {
         if (nr_columns() == 0) {
             return 0;
         }
-        return this->table.begin()->second.size();
+        return this->table_.begin()->second.size();
+    }
+    
+    std::wostream& operator<<(std::wostream& out, const row_t& row){
+        std::copy(row.begin(), row.end(), std::ostream_iterator<string, wchar_t>(out, L";"));
+        return out;
     }
 }

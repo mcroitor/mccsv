@@ -61,6 +61,7 @@ void testHeader() {
 }
 
 void testRow() {
+    using mc::operator <<;
     size_t p0 = 1;
     std::string filename = "example.csv";
     char separator = ';';
@@ -72,12 +73,14 @@ void testRow() {
     }
     if (result[0] != L"4" || result[1] != L"5" || result[2] != L"6") {
         std::cout << "%TEST_FAILED% time=0 testname=testRow (csvtest) message=invalid row reading" << std::endl;
+        std::wcout << result << std::endl;
     } else {
         std::cout << "%TEST_SUCCESSFULL% time=0 testname=testRow (csvtest) message=passed" << std::endl;
     }
 }
 
 void testColumn() {
+    using mc::operator <<;
     string header_name = L"second";
     std::string filename = "example.csv";
     char separator = ';';
@@ -89,12 +92,14 @@ void testColumn() {
     }
     if (result[0] != L"2" || result[1] != L"5" || result[2] != L"8" || result[3] != L"11") {
         std::cout << "%TEST_FAILED% time=0 testname=testColumn (csvtest) message=invalid column reading" << std::endl;
+        std::wcout << result << std::endl;
     } else {
         std::cout << "%TEST_SUCCESSFULL% time=0 testname=testColumn (csvtest) message=passed" << std::endl;
     }
 }
 
 void testColumn2() {
+    using mc::operator <<;
     size_t column_index = 0;
     std::string filename = "example.csv";
     char separator = ';';
@@ -106,6 +111,7 @@ void testColumn2() {
     }
     if (result[0] != L"1" || result[1] != L"4" || result[2] != L"7" || result[3] != L"10") {
         std::cout << "%TEST_FAILED% time=0 testname=testColumn2 (csvtest) message=invalid column reading" << std::endl;
+        std::wcout << result << std::endl;
     } else {
         std::cout << "%TEST_SUCCESSFULL% time=0 testname=testColumn2 (csvtest) message=passed" << std::endl;
     }
@@ -120,6 +126,7 @@ void testCell() {
     mc::cell_t result = _csv.cell(column_name, row_index);
     if (result != L"7") {
         std::cout << "%TEST_FAILED% time=0 testname=testCell (csvtest) message=invalid cell reading" << std::endl;
+        std::wcout << result << std::endl;
     } else {
         std::cout << "%TEST_SUCCESSFULL% time=0 testname=testCell (csvtest) message=passed" << std::endl;
     }
@@ -134,6 +141,7 @@ void testCell2() {
     mc::cell_t result = _csv.cell(column_index, row_index);
     if (result != L"12") {
         std::cout << "%TEST_FAILED% time=0 testname=testCell2 (csvtest) message=invalid cell reading" << std::endl;
+        std::wcout << result << std::endl;
     } else {
         std::cout << "%TEST_SUCCESSFULL% time=0 testname=testCell2 (csvtest) message=passed" << std::endl;
     }

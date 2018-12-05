@@ -42,11 +42,13 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 
 # Test Files
 TESTFILES= \
-	${TESTDIR}/TestFiles/f1
+	${TESTDIR}/TestFiles/f1 \
+	${TESTDIR}/TestFiles/f2
 
 # Test Object Files
 TESTOBJECTFILES= \
-	${TESTDIR}/tests/csvtest.o
+	${TESTDIR}/tests/csvtest.o \
+	${TESTDIR}/tests/no_header_test.o
 
 # C Compiler Flags
 CFLAGS=
@@ -88,11 +90,21 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/csvtest.o ${OBJECTFILES:%.o=%_nomain.o
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   
 
+${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/no_header_test.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}   
+
 
 ${TESTDIR}/tests/csvtest.o: tests/csvtest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/csvtest.o tests/csvtest.cpp
+
+
+${TESTDIR}/tests/no_header_test.o: tests/no_header_test.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/no_header_test.o tests/no_header_test.cpp
 
 
 ${OBJECTDIR}/mccsv_nomain.o: ${OBJECTDIR}/mccsv.o mccsv.cpp 
@@ -113,6 +125,7 @@ ${OBJECTDIR}/mccsv_nomain.o: ${OBJECTDIR}/mccsv.o mccsv.cpp
 	@if [ "${TEST}" = "" ]; \
 	then  \
 	    ${TESTDIR}/TestFiles/f1 || true; \
+	    ${TESTDIR}/TestFiles/f2 || true; \
 	else  \
 	    ./${TEST} || true; \
 	fi

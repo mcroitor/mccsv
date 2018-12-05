@@ -10,6 +10,7 @@
                    displayName="Resource Files"
                    projectFiles="true">
       <itemPath>example.csv</itemPath>
+      <itemPath>no_header.csv</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -25,6 +26,12 @@
                      projectFiles="true"
                      kind="TEST">
         <itemPath>tests/csvtest.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2"
+                     displayName="no_header_test"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/no_header_test.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -67,13 +74,32 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
       <item path="mccsv.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="mccsv.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="no_header.csv" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="readme.md" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/csvtest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/no_header_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="2">
@@ -113,13 +139,32 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
       <item path="mccsv.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="mccsv.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="no_header.csv" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="readme.md" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/csvtest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/no_header_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>
