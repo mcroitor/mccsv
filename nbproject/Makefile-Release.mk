@@ -43,12 +43,16 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 # Test Files
 TESTFILES= \
 	${TESTDIR}/TestFiles/f1 \
-	${TESTDIR}/TestFiles/f2
+	${TESTDIR}/TestFiles/f2 \
+	${TESTDIR}/TestFiles/f4 \
+	${TESTDIR}/TestFiles/f3
 
 # Test Object Files
 TESTOBJECTFILES= \
 	${TESTDIR}/tests/csvtest.o \
-	${TESTDIR}/tests/no_header_test.o
+	${TESTDIR}/tests/no_header_test.o \
+	${TESTDIR}/tests/types_test.o \
+	${TESTDIR}/tests/utils_test.o
 
 # C Compiler Flags
 CFLAGS=
@@ -94,6 +98,14 @@ ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/no_header_test.o ${OBJECTFILES:%.o=%_n
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}   
 
+${TESTDIR}/TestFiles/f4: ${TESTDIR}/tests/types_test.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f4 $^ ${LDLIBSOPTIONS}   
+
+${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/utils_test.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS}   
+
 
 ${TESTDIR}/tests/csvtest.o: tests/csvtest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
@@ -105,6 +117,18 @@ ${TESTDIR}/tests/no_header_test.o: tests/no_header_test.cpp
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/no_header_test.o tests/no_header_test.cpp
+
+
+${TESTDIR}/tests/types_test.o: tests/types_test.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/types_test.o tests/types_test.cpp
+
+
+${TESTDIR}/tests/utils_test.o: tests/utils_test.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/utils_test.o tests/utils_test.cpp
 
 
 ${OBJECTDIR}/mccsv_nomain.o: ${OBJECTDIR}/mccsv.o mccsv.cpp 
@@ -126,6 +150,8 @@ ${OBJECTDIR}/mccsv_nomain.o: ${OBJECTDIR}/mccsv.o mccsv.cpp
 	then  \
 	    ${TESTDIR}/TestFiles/f1 || true; \
 	    ${TESTDIR}/TestFiles/f2 || true; \
+	    ${TESTDIR}/TestFiles/f4 || true; \
+	    ${TESTDIR}/TestFiles/f3 || true; \
 	else  \
 	    ./${TEST} || true; \
 	fi

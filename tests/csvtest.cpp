@@ -13,7 +13,7 @@
  * Simple C++ Test Suite
  */
 
-using string = mc::string;
+using string = mc::cell_type;
 
 void testRead() {
     std::string filename = "example.csv";

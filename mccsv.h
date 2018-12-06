@@ -6,11 +6,13 @@
 #include <deque>
 #include <string>
 
+#include "_utils_.h"
+
 #define DLL_EXPORT __declspec(dllexport)
 namespace mc{
-    typedef std::wstring string;
+    typedef std::wstring cell_type;
     
-    typedef string cell_t;
+    typedef cell_type cell_t;
     typedef std::deque<cell_t> column_t;
     typedef std::deque<cell_t> row_t;
     

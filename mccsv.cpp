@@ -9,20 +9,6 @@
 #include "mccsv.h"
 
 namespace mc {
-
-    // helpers
-
-    row_t split(string text, char delimiter) {
-        row_t result;
-        string value;
-        std::wistringstream strin(text);
-        while (strin.eof() == false) {
-            std::getline(strin, value, (wchar_t)delimiter);
-            result.push_back(value);
-        }
-        return result;
-    }
-
     //private methods
 
     void csv::build_header(size_t nr_columns) {
@@ -39,7 +25,7 @@ namespace mc {
     void csv::read(std::string filename, char delimiter, bool has_header) {
         clear();
         std::wifstream fin(filename.c_str());
-        string line;
+        cell_type line;
         
         std::getline(fin, line);
         // prepare header
@@ -121,7 +107,7 @@ namespace mc {
     }
     
     std::wostream& operator<<(std::wostream& out, const row_t& row){
-        std::copy(row.begin(), row.end(), std::ostream_iterator<string, wchar_t>(out, L";"));
+        std::copy(row.begin(), row.end(), std::ostream_iterator<cell_type, wchar_t>(out, L";"));
         return out;
     }
 }
