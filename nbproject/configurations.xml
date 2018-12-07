@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>_types_.h</itemPath>
       <itemPath>_utils_.h</itemPath>
+      <itemPath>csv.h</itemPath>
       <itemPath>mccsv.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -74,6 +75,8 @@
       <item path="_types_.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="_utils_.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="csv.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="example.csv" ex="false" tool="3" flavor2="0">
       </item>
@@ -177,6 +180,8 @@
       <item path="_types_.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="_utils_.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="csv.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="example.csv" ex="false" tool="3" flavor2="0">
       </item>

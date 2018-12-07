@@ -92,10 +92,16 @@ namespace mc {
         row_type header_;
     public:
         // methods
-        table_t();
-        table_t(const table_t<STRING_TYPE>& table);
-        table_t(row_type headers);
-        ~table_t();
+        table_t(){}
+        table_t(const table_t<STRING_TYPE>& table):
+            header_(table.header_), columns_(table.columns_){}
+        table_t(row_type headers):
+            header_(headers){
+            for(string header_name: header_){
+                columns_.push_back(column_type(header_name));
+            }
+        }
+        ~table_t(){}
 
         const row_type& header() const {
             return header_;
@@ -127,9 +133,10 @@ namespace mc {
         //        column_type& operator [](size_t index);
 
         // slow method!
+
         const row_type& row(size_t index) const {
             row_t result;
-            for(const column_t& column: columns_){
+            for (const column_t& column : columns_) {
                 result.push_back(column[index]);
             }
             return result;
@@ -143,17 +150,33 @@ namespace mc {
             return column(column_name)[row_index];
         }
 
-        void insert_column(const column_type& column){
+        void insert_column(const column_type& column) {
             columns_.push_back(column);
         }
-        // slow method!
-        void insert_row(const row_type& row){
-
+        void insert_column(const column_type& column, size_t position) {
+            columns_.insert(columns_.begin() + position, column);
         }
-        size_t nr_columns() const{
+        // slow method!
+
+        void insert_row(const row_type& row) {
+            for(size_t index = 0; index != nr_columns(); ++index){
+                columns_[index].insert(row[index]);
+            }
+        }
+        void insert_row(const row_type& row, size_t position) {
+            for(size_t index = 0; index != nr_columns(); ++index){
+                columns_[index].insert(row[index], position);
+            }
+        }
+
+        size_t nr_columns() const {
             return columns_.size();
         }
-        size_t nr_rows() const{
+
+        size_t nr_rows() const {
+            if(columns_.empty()){
+                return 0;
+            }
             return columns_[0].size();
         }
     };
