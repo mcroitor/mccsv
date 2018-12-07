@@ -12,6 +12,8 @@
 #include <algorithm>
 #include <stdexcept>
 
+#include "mccsv.h"
+
 namespace mc {
     template<typename STRING_TYPE>
     using cell_t = STRING_TYPE;
@@ -100,7 +102,7 @@ namespace mc {
         }
 
         const column_type& column(size_t index) const {
-            if(columns_.size() <= index){
+            if (columns_.size() <= index) {
                 throw std::out_of_range("out of range");
             }
             return columns_[index];
@@ -108,7 +110,7 @@ namespace mc {
 
         const column_type& column(string column_name) const {
             auto index = std::find(header_.begin(), header_.end(), column_name);
-            if(index == header_.end()){
+            if (index == header_.end()) {
                 throw std::out_of_range("out of range");
             }
             return columns_[index - header_.begin()];
@@ -125,18 +127,35 @@ namespace mc {
         //        column_type& operator [](size_t index);
 
         // slow method!
-        const row_type& row(size_t index) const;
+        const row_type& row(size_t index) const {
+            row_t result;
+            for(const column_t& column: columns_){
+                result.push_back(column[index]);
+            }
+            return result;
+        }
 
-        const cell_type& cell(size_t column_index, size_t row_index) const{
+        const cell_type& cell(size_t column_index, size_t row_index) const {
             return column(column_index)[row_index];
         }
-        const cell_type& cell(string column_name, size_t row_index) const{
+
+        const cell_type& cell(string column_name, size_t row_index) const {
             return column(column_name)[row_index];
         }
 
-        void insert_column(const column_type& column);
+        void insert_column(const column_type& column){
+            columns_.push_back(column);
+        }
         // slow method!
-        void insert_row(const row_type& row);
+        void insert_row(const row_type& row){
+
+        }
+        size_t nr_columns() const{
+            return columns_.size();
+        }
+        size_t nr_rows() const{
+            return columns_[0].size();
+        }
     };
 }
 

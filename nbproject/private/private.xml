@@ -6,6 +6,10 @@
     </data>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/Documents/NetBeansProjects/mclib/mccsv/mccsv.h</file>
+            <file>file:/D:/Documents/NetBeansProjects/mclib/mccsv/tests/types_test.cpp</file>
+            <file>file:/D:/Documents/NetBeansProjects/mclib/mccsv/_types_.h</file>
+        </group>
     </open-files>
 </project-private>
