@@ -3,11 +3,11 @@
 #include "mccsv.h"
 
 TEST_CASE("no_header test", "[csv]"){
-    using mc::operator <<;
-    using mc::cell_t;
-    using mc::column_t;
-    using mc::row_t;
-    using mc::csv;
+    using mc::deprecated::operator <<;
+    using mc::deprecated::cell_t;
+    using mc::deprecated::column_t;
+    using mc::deprecated::row_t;
+    using mc::deprecated::csv;
     
     csv _csv("no_header.csv", ';', false);
     

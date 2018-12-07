@@ -135,8 +135,8 @@ namespace mc {
         // slow method!
 
         const row_type& row(size_t index) const {
-            row_t result;
-            for (const column_t& column : columns_) {
+            row_type result;
+            for (const column_type& column : columns_) {
                 result.push_back(column[index]);
             }
             return result;

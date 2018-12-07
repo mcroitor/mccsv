@@ -13,12 +13,12 @@
  * Simple C++ Test Suite
  */
 
-using string = mc::cell_type;
+using string = mc::deprecated::cell_type;
 
 void testRead() {
     std::string filename = "example.csv";
     char separator = ';';
-    mc::csv _csv(filename, separator);
+    mc::deprecated::csv _csv(filename, separator);
     if (_csv.nr_columns() != 3) {
         std::cout << "%TEST_FAILED% time=0 testname=testCsv (csvtest) message=invalid columns number" << std::endl;
         return;
@@ -35,7 +35,7 @@ void testRead() {
 void testClear() {
     std::string filename = "example.csv";
     char separator = ';';
-    mc::csv _csv(filename, separator);
+    mc::deprecated::csv _csv(filename, separator);
     _csv.clear();
     if (_csv.nr_columns() != 0 || _csv.nr_rows() != 0) {
         std::cout << "%TEST_FAILED% time=0 testname=testClear (csvtest) message=invalid data clearing" << std::endl;
@@ -47,8 +47,8 @@ void testClear() {
 void testHeader() {
     std::string filename = "example.csv";
     char separator = ';';
-    mc::csv _csv(filename, separator);
-    mc::row_t result = _csv.header();
+    mc::deprecated::csv _csv(filename, separator);
+    mc::deprecated::row_t result = _csv.header();
     if (result.size() != 3) {
         std::cout << "%TEST_FAILED% time=0 testname=testHeader (csvtest) message=invalid columns number" << std::endl;
         return;
@@ -61,12 +61,12 @@ void testHeader() {
 }
 
 void testRow() {
-    using mc::operator <<;
+    using mc::deprecated::operator <<;
     size_t p0 = 1;
     std::string filename = "example.csv";
     char separator = ';';
-    mc::csv _csv(filename, separator);
-    mc::row_t result = _csv.row(p0);
+    mc::deprecated::csv _csv(filename, separator);
+    mc::deprecated::row_t result = _csv.row(p0);
     if (result.size() != 3) {
         std::cout << "%TEST_FAILED% time=0 testname=testRow (csvtest) message=invalid number of elements in row" << std::endl;
         return;
@@ -80,12 +80,12 @@ void testRow() {
 }
 
 void testColumn() {
-    using mc::operator <<;
+    using mc::deprecated::operator <<;
     string header_name = L"second";
     std::string filename = "example.csv";
     char separator = ';';
-    mc::csv _csv(filename, separator);
-    mc::column_t result = _csv.column(header_name);
+    mc::deprecated::csv _csv(filename, separator);
+    mc::deprecated::column_t result = _csv.column(header_name);
     if (result.size() != 4) {
         std::cout << "%TEST_FAILED% time=0 testname=testColumn (csvtest) message=invalid number of elements in column" << std::endl;
         return;
@@ -99,12 +99,12 @@ void testColumn() {
 }
 
 void testColumn2() {
-    using mc::operator <<;
+    using mc::deprecated::operator <<;
     size_t column_index = 0;
     std::string filename = "example.csv";
     char separator = ';';
-    mc::csv _csv(filename, separator);
-    mc::column_t result = _csv.column(column_index);
+    mc::deprecated::csv _csv(filename, separator);
+    mc::deprecated::column_t result = _csv.column(column_index);
     if (result.size() != 4) {
         std::cout << "%TEST_FAILED% time=0 testname=testColumn2 (csvtest) message=invalid number of elements in column" << std::endl;
         return;
@@ -122,8 +122,8 @@ void testCell() {
     size_t row_index = 2;
     std::string filename = "example.csv";
     char separator = ';';
-    mc::csv _csv(filename, separator);
-    mc::cell_t result = _csv.cell(column_name, row_index);
+    mc::deprecated::csv _csv(filename, separator);
+    mc::deprecated::cell_t result = _csv.cell(column_name, row_index);
     if (result != L"7") {
         std::cout << "%TEST_FAILED% time=0 testname=testCell (csvtest) message=invalid cell reading" << std::endl;
         std::wcout << result << std::endl;
@@ -137,8 +137,8 @@ void testCell2() {
     size_t row_index = 3;
     std::string filename = "example.csv";
     char separator = ';';
-    mc::csv _csv(filename, separator);
-    mc::cell_t result = _csv.cell(column_index, row_index);
+    mc::deprecated::csv _csv(filename, separator);
+    mc::deprecated::cell_t result = _csv.cell(column_index, row_index);
     if (result != L"12") {
         std::cout << "%TEST_FAILED% time=0 testname=testCell2 (csvtest) message=invalid cell reading" << std::endl;
         std::wcout << result << std::endl;
@@ -150,7 +150,7 @@ void testCell2() {
 void testNr_columns() {
     std::string filename = "example.csv";
     char separator = ';';
-    mc::csv _csv(filename, separator);
+    mc::deprecated::csv _csv(filename, separator);
     size_t result = _csv.nr_columns();
     if (result != 3) {
         std::cout << "%TEST_FAILED% time=0 testname=testNr_columns (csvtest) message=nr of columns error" << std::endl;
@@ -162,7 +162,7 @@ void testNr_columns() {
 void testNr_rows() {
     std::string filename = "example.csv";
     char separator = ';';
-    mc::csv _csv(filename, separator);
+    mc::deprecated::csv _csv(filename, separator);
     size_t result = _csv.nr_rows();
     if (result != 4) {
         std::cout << "%TEST_FAILED% time=0 testname=testNr_rows (csvtest) message=nr of rows error" << std::endl;
