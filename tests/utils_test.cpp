@@ -26,3 +26,17 @@ TEST_CASE("split function with std::wstring", "[split]") {
     REQUIRE(result[1] == L"another");
     REQUIRE(result[2] == L"string");
 }
+
+TEST_CASE("merge function with std::string", "[merge]") {
+    std::deque<std::string> pattern = {"this", "is", "a", "string"};
+    std::string result = mc::merge(pattern, ' ');
+
+    REQUIRE(result == "this is a string");
+}
+
+TEST_CASE("merge function with std::wstring", "[merge]") {
+    std::deque<std::wstring> pattern = {L"this", L"is", L"a", L"string"};
+    std::wstring result = mc::merge(pattern, L' ');
+
+    REQUIRE(result == L"this is a string");
+}

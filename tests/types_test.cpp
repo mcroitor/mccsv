@@ -61,6 +61,26 @@ TEST_CASE("init variables", "[types]") {
         REQUIRE(a_column[2] == "another");
         REQUIRE(a_column[3] == "data");
         REQUIRE(a_column[4] == "oops");
+
+    }
+
+    SECTION("table_t") {
+        using table_t = mc::table_t<std::string>;
+
+        SECTION("default constructor") {
+            table_t aTable;
+
+            REQUIRE(aTable.nr_columns() == 0);
+            REQUIRE(aTable.nr_rows() == 0);
+        }
         
+        SECTION("constructor with column headers") {
+            table_t aTable({"first column", "second column"});
+
+            REQUIRE(aTable.nr_columns() == 2);
+            REQUIRE(aTable.nr_rows() == 0);
+            REQUIRE(aTable.header()[0] == "first column");
+            REQUIRE(aTable.header()[1] == "second column");
+        }
     }
 }

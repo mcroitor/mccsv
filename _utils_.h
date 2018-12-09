@@ -10,6 +10,9 @@
 
 #include <deque>
 #include <sstream>
+#include <iterator>
+
+#include "_types_.h"
 
 
 /**
@@ -26,6 +29,20 @@ namespace mc{
         while (strin.eof() == false) {
             std::getline(strin, value, sep);
             result.push_back(value);
+        }
+        return result;
+    }
+    
+    template<typename CHAR_TYPE>
+    std::basic_string<CHAR_TYPE> merge(std::deque<std::basic_string<CHAR_TYPE>> words, CHAR_TYPE sep){
+        std::basic_string<CHAR_TYPE> result;
+        auto it = words.begin();
+        while(it != words.end()){
+            result += *it;
+            ++ it;
+            if(it != words.end()){
+                result += sep;
+            }
         }
         return result;
     }
