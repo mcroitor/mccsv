@@ -19,7 +19,7 @@ namespace mc {
     class csv {
     public:
         using string_t = STRING_TYPE;
-        using char_t = string_t::value_type;
+        using char_t = typename string_t::value_type;
         using table_t = mc::table_t<string_t>;
 
         table_t read(const string_t& filename, const char_t separator, const bool has_header = true) const {
