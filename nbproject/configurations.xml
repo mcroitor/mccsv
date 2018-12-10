@@ -62,6 +62,9 @@
     </logicalFolder>
     <itemPath>readme.md</itemPath>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>examples</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="3">

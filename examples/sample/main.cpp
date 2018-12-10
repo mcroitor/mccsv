@@ -13,15 +13,15 @@ using mc::operator <<;
 
 int main(){
 	csv _csv;
-	table_t table = csv.read("example.csv", ';');
+	table_t table = _csv.read("example.csv", ';');
 	
 	std::cout << "csv data readed: " << std::endl;
 	std::cout << "\theader: " << table.header() << std::endl;
 
-	for(size_t index = 0; index != table.nr_rows()l ++index){
-		std::cout << "row" << index << " = " << table.row(index) << std::endl;
+	for(size_t index = 0; index != table.nr_rows(); ++index){
+		std::cout << "\trow" << index << ": " << table.row(index) << std::endl;
 	}
 
-	_csv.write("copy_example.csv", '\t');
+	_csv.write(table, "copy_example.csv", '\t');
 	return 0;
 }
