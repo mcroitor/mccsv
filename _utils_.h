@@ -12,16 +12,13 @@
 #include <sstream>
 #include <iterator>
 
-#include "_types_.h"
-
-
 /**
  * defines some string manipulations
  */
 
 namespace mc{
     template<typename STRING_TYPE>
-    std::deque<STRING_TYPE> split(STRING_TYPE str, typename STRING_TYPE::value_type sep){
+    std::deque<STRING_TYPE> explode(STRING_TYPE str, typename STRING_TYPE::value_type sep){
         using CHAR_TYPE = typename STRING_TYPE::value_type;
         std::deque<STRING_TYPE> result;
         STRING_TYPE value;
@@ -34,7 +31,7 @@ namespace mc{
     }
     
     template<typename CHAR_TYPE>
-    std::basic_string<CHAR_TYPE> merge(std::deque<std::basic_string<CHAR_TYPE>> words, CHAR_TYPE sep){
+    std::basic_string<CHAR_TYPE> implode(const std::deque<std::basic_string<CHAR_TYPE> >& words, CHAR_TYPE sep){
         std::basic_string<CHAR_TYPE> result;
         auto it = words.begin();
         while(it != words.end()){

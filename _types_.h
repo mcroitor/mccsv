@@ -12,8 +12,6 @@
 #include <algorithm>
 #include <stdexcept>
 
-#include "mccsv.h"
-
 namespace mc {
     template<typename STRING_TYPE>
     using cell_t = STRING_TYPE;
@@ -134,7 +132,7 @@ namespace mc {
 
         // slow method!
 
-        const row_type& row(size_t index) const {
+        const row_type row(size_t index) const {
             row_type result;
             for (const column_type& column : columns_) {
                 result.push_back(column[index]);

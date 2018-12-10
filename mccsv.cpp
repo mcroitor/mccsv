@@ -30,7 +30,7 @@ namespace mc {
 
             std::getline(fin, line);
             // prepare header
-            row_t row = split(line, delimiter);
+            row_t row = explode(line, delimiter);
             build_header(row.size());
             if (has_header == true) {
                 std::copy(row.begin(), row.end(), header_.begin());
@@ -47,7 +47,7 @@ namespace mc {
                 }
             }
             while (std::getline(fin, line)) {
-                row_t row = split(line, delimiter);
+                row_t row = explode(line, delimiter);
                 size_t i = 0;
                 for (i = 0; i != row.size(); ++i) {
                     table_.at(header_[i]).push_back(row[i]);

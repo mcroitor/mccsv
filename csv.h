@@ -10,30 +10,33 @@
 
 #include <fstream>
 
+#include "_utils_.h"
 #include "_types_.h"
 
 
 namespace mc {
 
-    template <typename STRING_TYPE = std::wstring>
-    class csv {
+    template <typename STRING_TYPE>
+    class csv_processor {
     public:
         using string_t = STRING_TYPE;
         using char_t = typename string_t::value_type;
         using table_t = mc::table_t<string_t>;
+        using column_t = typename table_t::column_type;
 
         table_t read(const string_t& filename, const char_t separator, const bool has_header = true) const {
-            // TODO #: has_header not used yet
+            // TODO #: has_header not realised yet
+            // TODO #: check correctness of CSV
             table_t table;
             string_t line;
             std::basic_ifstream<char_t> fin(filename);
             std::getline(fin, line);
-            row_t row = split(line, separator);
-            for (char_t header_name : row) {
-                table.insert_column(table_t::column_type(header_name));
+            row_t<string_t> row = explode(line, separator);
+            for (string_t header_name : row) {
+                table.insert_column(column_t(header_name));
             }
             while (std::getline(fin, line)) {
-                row = split(line, separator);
+                row = explode(line, separator);
                 table.insert_row(row);
             }
             return table;
@@ -41,6 +44,12 @@ namespace mc {
 
         void write(const table_t& table, const string_t& filename, const char_t separator, const bool has_header = true) const {
             std::basic_ofstream<char_t> fout(filename);
+            if(has_header == true){
+                fout << mc::implode(table.header(), separator) << std::endl;
+            }
+            for(size_t index = 0; index != table.nr_rows(); ++index){
+                fout << mc::implode(table.row(index), separator) << std::endl;
+            }
         }
     };
 }
