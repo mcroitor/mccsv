@@ -8,7 +8,7 @@ TEST_CASE("no_header test", "[csv][.]"){
     using column_t = mc::column_t<std::string>;
     using row_t = mc::row_t<std::string>;
     using table_t = mc::table_t<std::string>;
-    using csv_processor = mc::csv_processor<std::string>;
+    using csv_processor = mc::csv<std::string>;
     
     csv_processor _csv;
     table_t table = _csv.read("no_header.csv", ';', false);

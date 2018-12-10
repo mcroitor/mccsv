@@ -17,7 +17,7 @@
 namespace mc {
 
     template <typename STRING_TYPE>
-    class csv_processor {
+    class csv {
     public:
         using string_t = STRING_TYPE;
         using char_t = typename string_t::value_type;

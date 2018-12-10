@@ -3,7 +3,7 @@
 #include "csv.h"
 
 TEST_CASE("test read data", "[csv]") {
-    using csv_processor = mc::csv_processor<std::string>;
+    using csv_processor = mc::csv<std::string>;
     using table_t = mc::table_t<std::string>;
     
     csv_processor _csv;
@@ -12,7 +12,7 @@ TEST_CASE("test read data", "[csv]") {
 }
 
 TEST_CASE("test write data", "[csv]") {
-    using csv_processor = mc::csv_processor<std::string>;
+    using csv_processor = mc::csv<std::string>;
     using table_t = mc::table_t<std::string>;
     
     table_t table({"column1", "column2", "column3", "column4"});

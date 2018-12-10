@@ -24,7 +24,7 @@ using mc::operator <<;
 void testRead() {
     std::string filename = "example.csv";
     char_t separator = ';';
-    mc::csv_processor<string> _csv;
+    mc::csv<string> _csv;
     table_t table = _csv.read(filename, separator);
     if (table.nr_columns() != 3) {
         std::cout << "%TEST_FAILED% time=0 testname=testCsv (csvtest) message=invalid columns number" << std::endl;
@@ -42,7 +42,7 @@ void testRead() {
 void testClear() {
     std::string filename = "example.csv";
     char_t separator = ';';
-    mc::csv_processor<string> _csv;
+    mc::csv<string> _csv;
     table_t table = _csv.read(filename, separator);
     table.clear();
     if (table.nr_columns() != 0 || table.nr_rows() != 0) {
@@ -55,7 +55,7 @@ void testClear() {
 void testHeader() {
     std::string filename = "example.csv";
     char_t separator = ';';
-    mc::csv_processor<string> _csv;
+    mc::csv<string> _csv;
     table_t table = _csv.read(filename, separator);
     row_t result = table.header();
     if (result.size() != 3) {
@@ -74,7 +74,7 @@ void testRow() {
     size_t p0 = 1;
     std::string filename = "example.csv";
     char_t separator = ';';
-    mc::csv_processor<string> _csv;
+    mc::csv<string> _csv;
     table_t table = _csv.read(filename, separator);
     row_t result = table.row(p0);
     if (result.size() != 3) {
@@ -93,7 +93,7 @@ void testColumn() {
     string header_name = "second";
     std::string filename = "example.csv";
     char_t separator = ';';
-    mc::csv_processor<string> _csv;
+    mc::csv<string> _csv;
     table_t table = _csv.read(filename, separator);
     column_t result = table.column(header_name);
     if (result.size() != 4) {
@@ -112,7 +112,7 @@ void testColumn2() {
     size_t column_index = 0;
     std::string filename = "example.csv";
     char_t separator = ';';
-    mc::csv_processor<string> _csv;
+    mc::csv<string> _csv;
     table_t table = _csv.read(filename, separator);
     column_t result = table.column(column_index);
     if (result.size() != 4) {
@@ -132,7 +132,7 @@ void testCell() {
     size_t row_index = 2;
     std::string filename = "example.csv";
     char_t separator = ';';
-    mc::csv_processor<string> _csv;
+    mc::csv<string> _csv;
     table_t table = _csv.read(filename, separator);
     cell_t result = table.cell(column_name, row_index);
     if (result != "7") {
@@ -148,7 +148,7 @@ void testCell2() {
     size_t row_index = 3;
     std::string filename = "example.csv";
     char_t separator = ';';
-    mc::csv_processor<string> _csv;
+    mc::csv<string> _csv;
     table_t table = _csv.read(filename, separator);
     cell_t result = table.cell(column_index, row_index);
     if (result != "12") {
@@ -162,7 +162,7 @@ void testCell2() {
 void testNr_columns() {
     std::string filename = "example.csv";
     char_t separator = ';';
-    mc::csv_processor<string> _csv;
+    mc::csv<string> _csv;
     table_t table = _csv.read(filename, separator);
     size_t result = table.nr_columns();
     if (result != 3) {
@@ -175,7 +175,7 @@ void testNr_columns() {
 void testNr_rows() {
     std::string filename = "example.csv";
     char_t separator = ';';
-    mc::csv_processor<string> _csv;
+    mc::csv<string> _csv;
     table_t table = _csv.read(filename, separator);
     size_t result = table.nr_rows();
     if (result != 4) {
