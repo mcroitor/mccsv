@@ -75,8 +75,21 @@
           <standard>8</standard>
         </ccTool>
         <archiverTool>
+          <output>${CND_DISTDIR}/libmccsv.a</output>
         </archiverTool>
       </compileType>
+      <packaging>
+        <packType>Tar</packType>
+        <output>${CND_DISTDIR}/package/mccsv.tar</output>
+        <packFileList>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}lib/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="644"
+                            owner="root"
+                            group="bin"/>
+        </packFileList>
+      </packaging>
       <item path="_types_.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="_utils_.h" ex="false" tool="3" flavor2="0">

@@ -74,13 +74,13 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmccsv.a
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/libmccsv.a
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmccsv.a: ${OBJECTFILES}
-	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmccsv.a
-	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmccsv.a ${OBJECTFILES} 
-	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmccsv.a
+${CND_DISTDIR}/libmccsv.a: ${OBJECTFILES}
+	${MKDIR} -p ${CND_DISTDIR}
+	${RM} ${CND_DISTDIR}/libmccsv.a
+	${AR} -rv ${CND_DISTDIR}/libmccsv.a ${OBJECTFILES} 
+	$(RANLIB) ${CND_DISTDIR}/libmccsv.a
 
 ${OBJECTDIR}/csv.o: csv.cpp
 	${MKDIR} -p ${OBJECTDIR}

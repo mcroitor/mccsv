@@ -8,12 +8,12 @@ CND_BUILDDIR=build
 CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=MinGW-Windows
-CND_ARTIFACT_DIR_Debug=dist/Debug/MinGW-Windows
+CND_ARTIFACT_DIR_Debug=dist
 CND_ARTIFACT_NAME_Debug=libmccsv.a
-CND_ARTIFACT_PATH_Debug=dist/Debug/MinGW-Windows/libmccsv.a
-CND_PACKAGE_DIR_Debug=dist/Debug/MinGW-Windows/package
+CND_ARTIFACT_PATH_Debug=dist/libmccsv.a
+CND_PACKAGE_DIR_Debug=dist/package
 CND_PACKAGE_NAME_Debug=mccsv.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/MinGW-Windows/package/mccsv.tar
+CND_PACKAGE_PATH_Debug=dist/package/mccsv.tar
 # Release configuration
 CND_PLATFORM_Release=MinGW-Windows
 CND_ARTIFACT_DIR_Release=dist/Release/MinGW-Windows

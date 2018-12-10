@@ -13,7 +13,7 @@ CND_BUILDDIR=build
 CND_DLIB_EXT=dll
 NBTMPDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmccsv.a
+OUTPUT_PATH=${CND_DISTDIR}/libmccsv.a
 OUTPUT_BASENAME=libmccsv.a
 PACKAGE_TOP_DIR=mccsv/
 
@@ -54,7 +54,7 @@ function copyFileToTmpDir
 
 # Setup
 cd "${TOP}"
-mkdir -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package
+mkdir -p ${CND_DISTDIR}/package
 rm -rf ${NBTMPDIR}
 mkdir -p ${NBTMPDIR}
 
@@ -66,9 +66,9 @@ copyFileToTmpDir "${OUTPUT_PATH}" "${NBTMPDIR}/${PACKAGE_TOP_DIR}lib/${OUTPUT_BA
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/mccsv.tar
+rm -f ${CND_DISTDIR}/package/mccsv.tar
 cd ${NBTMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/mccsv.tar *
+tar -vcf ../../../../${CND_DISTDIR}/package/mccsv.tar *
 checkReturnCode
 
 # Cleanup
