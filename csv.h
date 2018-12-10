@@ -77,4 +77,3 @@ namespace mc {
 }
 
 #endif /* CSV_H */
-
