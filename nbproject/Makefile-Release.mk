@@ -34,8 +34,7 @@ include Makefile
 OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
-OBJECTFILES= \
-	${OBJECTDIR}/mccsv.o
+OBJECTFILES=
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -79,11 +78,6 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmccsv.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmccsv.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
-
-${OBJECTDIR}/mccsv.o: mccsv.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mccsv.o mccsv.cpp
 
 # Subprojects
 .build-subprojects:
@@ -142,19 +136,6 @@ ${TESTDIR}/tests/utils_test.o: tests/utils_test.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/utils_test.o tests/utils_test.cpp
 
-
-${OBJECTDIR}/mccsv_nomain.o: ${OBJECTDIR}/mccsv.o mccsv.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/mccsv.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mccsv_nomain.o mccsv.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/mccsv.o ${OBJECTDIR}/mccsv_nomain.o;\
-	fi
 
 # Run Test Targets
 .test-conf:

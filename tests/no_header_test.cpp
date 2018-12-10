@@ -1,40 +1,42 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include "mccsv.h"
+#include "csv.h"
 
-TEST_CASE("no_header test", "[csv]"){
-    using mc::deprecated::operator <<;
-    using mc::deprecated::cell_t;
-    using mc::deprecated::column_t;
-    using mc::deprecated::row_t;
-    using mc::deprecated::csv;
+TEST_CASE("no_header test", "[csv][.]"){
+    using mc::operator <<;
+    using cell_t = mc::cell_t<std::string>;
+    using column_t = mc::column_t<std::string>;
+    using row_t = mc::row_t<std::string>;
+    using table_t = mc::table_t<std::string>;
+    using csv_processor = mc::csv_processor<std::string>;
     
-    csv _csv("no_header.csv", ';', false);
+    csv_processor _csv;
+    table_t table = _csv.read("no_header.csv", ';', false);
     
     SECTION("check dimensions"){
-        REQUIRE(_csv.nr_columns() == 3);
-        REQUIRE(_csv.nr_rows() == 4);
+        REQUIRE(table.nr_columns() == 3);
+        REQUIRE(table.nr_rows() == 4);
     }
     
     SECTION("check header"){
-        row_t header = _csv.header();
-        REQUIRE(header[0] == L"column1");
-        REQUIRE(header[1] == L"column2");
-        REQUIRE(header[2] == L"column3");
+        row_t header = table.header();
+        REQUIRE(header[0] == "column1");
+        REQUIRE(header[1] == "column2");
+        REQUIRE(header[2] == "column3");
     }
     
     SECTION("check column 1"){
-        column_t column = _csv.column(1);
-        REQUIRE(column[0] == L"2");
-        REQUIRE(column[1] == L"5");
-        REQUIRE(column[2] == L"8");
-        REQUIRE(column[3] == L"11");
+        column_t column = table.column(1);
+        REQUIRE(column[0] == "2");
+        REQUIRE(column[1] == "5");
+        REQUIRE(column[2] == "8");
+        REQUIRE(column[3] == "11");
     }
     
     SECTION("check row 2"){
-        row_t row = _csv.row(2);
-        REQUIRE(row[0] == L"7");
-        REQUIRE(row[1] == L"8");
-        REQUIRE(row[2] == L"9");
+        row_t row = table.row(2);
+        REQUIRE(row[0] == "7");
+        REQUIRE(row[1] == "8");
+        REQUIRE(row[2] == "9");
     }
 }

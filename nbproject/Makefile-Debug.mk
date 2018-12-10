@@ -34,8 +34,7 @@ include Makefile
 OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
-OBJECTFILES= \
-	${OBJECTDIR}/mccsv.o
+OBJECTFILES=
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -81,11 +80,6 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmccsv.a: ${OBJECTFILES}
 	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmccsv.a
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmccsv.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmccsv.a
-
-${OBJECTDIR}/mccsv.o: mccsv.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mccsv.o mccsv.cpp
 
 # Subprojects
 .build-subprojects:
@@ -144,19 +138,6 @@ ${TESTDIR}/tests/utils_test.o: tests/utils_test.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/utils_test.o tests/utils_test.cpp
 
-
-${OBJECTDIR}/mccsv_nomain.o: ${OBJECTDIR}/mccsv.o mccsv.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/mccsv.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mccsv_nomain.o mccsv.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/mccsv.o ${OBJECTDIR}/mccsv_nomain.o;\
-	fi
 
 # Run Test Targets
 .test-conf:

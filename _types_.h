@@ -11,6 +11,8 @@
 #include <deque>
 #include <algorithm>
 #include <stdexcept>
+#include <iostream>
+#include <iterator>
 
 namespace mc {
     template<typename STRING_TYPE>
@@ -18,6 +20,16 @@ namespace mc {
 
     template<typename STRING_TYPE>
     using row_t = std::deque<STRING_TYPE>;
+
+    std::ostream& operator<<(std::ostream& out, const row_t<std::string>& row) {
+        std::copy(row.begin(), row.end(), std::ostream_iterator<std::string>(out, " "));
+        return out;
+    }
+
+    std::wostream& operator<<(std::wostream& out, const row_t<std::wstring>& row) {
+        std::copy(row.begin(), row.end(), std::ostream_iterator<std::wstring, wchar_t>(out, L" "));
+        return out;
+    }
 
     template<typename STRING_TYPE>
     class column_t {
@@ -74,6 +86,23 @@ namespace mc {
             values_.push_back(str);
         }
     };
+    
+    std::ostream& operator<<(std::ostream& out, const column_t<std::string>& column) {
+        out << column.name() << ": [";
+        for(std::string cell: column.values()){
+            out << cell << " ";
+        }
+        out << "]";
+        return out;
+    }
+
+    std::wostream& operator<<(std::wostream& out, const column_t<std::wstring>& column) {
+        out << column.name() << L": [";
+        for(std::wstring cell: column.values()){
+            out << cell << L" ";
+        }
+        return out;
+    }
 
     template<typename STRING_TYPE>
     class table_t {
@@ -90,16 +119,23 @@ namespace mc {
         row_type header_;
     public:
         // methods
-        table_t(){}
-        table_t(const table_t<STRING_TYPE>& table):
-            header_(table.header_), columns_(table.columns_){}
-        table_t(row_type headers):
-            header_(headers){
-            for(string header_name: header_){
+
+        table_t() {
+        }
+
+        table_t(const table_t<STRING_TYPE>& table) :
+        header_(table.header_), columns_(table.columns_) {
+        }
+
+        table_t(row_type headers) {
+            header_.assign(headers.begin(), headers.end());
+            for (string header_name : header_) {
                 columns_.push_back(column_type(header_name));
             }
         }
-        ~table_t(){}
+
+        ~table_t() {
+        }
 
         const row_type& header() const {
             return header_;
@@ -149,20 +185,24 @@ namespace mc {
         }
 
         void insert_column(const column_type& column) {
+            header_.push_back(column.name());
             columns_.push_back(column);
         }
+
         void insert_column(const column_type& column, size_t position) {
+            header_.insert(columns_.begin() + position, column.name());
             columns_.insert(columns_.begin() + position, column);
         }
         // slow method!
 
         void insert_row(const row_type& row) {
-            for(size_t index = 0; index != nr_columns(); ++index){
+            for (size_t index = 0; index != nr_columns(); ++index) {
                 columns_[index].insert(row[index]);
             }
         }
+
         void insert_row(const row_type& row, size_t position) {
-            for(size_t index = 0; index != nr_columns(); ++index){
+            for (size_t index = 0; index != nr_columns(); ++index) {
                 columns_[index].insert(row[index], position);
             }
         }
@@ -172,10 +212,15 @@ namespace mc {
         }
 
         size_t nr_rows() const {
-            if(columns_.empty()){
+            if (columns_.empty()) {
                 return 0;
             }
             return columns_[0].size();
+        }
+
+        void clear() {
+            columns_.clear();
+            header_.clear();
         }
     };
 }
