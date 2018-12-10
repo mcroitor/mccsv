@@ -44,14 +44,36 @@ namespace mc {
 
         void write(const table_t& table, const string_t& filename, const char_t separator, const bool has_header = true) const {
             std::basic_ofstream<char_t> fout(filename);
-            if(has_header == true){
+            if (has_header == true) {
                 fout << mc::implode(table.header(), separator) << std::endl;
             }
-            for(size_t index = 0; index != table.nr_rows(); ++index){
+            for (size_t index = 0; index != table.nr_rows(); ++index) {
                 fout << mc::implode(table.row(index), separator) << std::endl;
             }
         }
     };
+
+    namespace s {
+        using string = std::string;
+        using char_t = string::value_type;
+        using cell_t = mc::cell_t<string>;
+        using row_t = mc::row_t<string>;
+        using column_t = mc::column_t<string>;
+        using table_t = mc::table_t<string>;
+        using csv = csv<string>;
+        using mc::operator<<;
+    }
+
+    namespace w {
+        using string = std::wstring;
+        using char_t = string::value_type;
+        using cell_t = mc::cell_t<string>;
+        using row_t = mc::row_t<string>;
+        using column_t = mc::column_t<string>;
+        using table_t = mc::table_t<string>;
+        using csv = csv<string>;
+        using mc::operator<<;
+    }
 }
 
 #endif /* CSV_H */

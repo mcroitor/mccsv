@@ -17,6 +17,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>csv.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -79,6 +80,8 @@
       <item path="_types_.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="_utils_.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="csv.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="csv.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -197,6 +200,8 @@
       <item path="_types_.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="_utils_.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="csv.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="csv.h" ex="false" tool="3" flavor2="0">
       </item>
