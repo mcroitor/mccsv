@@ -19,9 +19,11 @@ namespace mc {
     template <typename STRING_TYPE>
     class csv {
     public:
-        using string_t = STRING_TYPE;
+        using table_t = mc::table_t<STRING_TYPE>;
+        using string_t = typename table_t::string;
         using char_t = typename string_t::value_type;
-        using table_t = mc::table_t<string_t>;
+        using cell_t = typename table_t::cell_type;
+        using row_t = typename table_t::row_type;
         using column_t = typename table_t::column_type;
 
         table_t read(const string_t& filename, const char_t separator, const bool has_header = true) const {
@@ -31,7 +33,7 @@ namespace mc {
             string_t line;
             std::basic_ifstream<char_t> fin(filename);
             std::getline(fin, line);
-            row_t<string_t> row = explode(line, separator);
+            row_t row = explode(line, separator);
             for (string_t header_name : row) {
                 table.insert_column(column_t(header_name));
             }
@@ -52,28 +54,11 @@ namespace mc {
             }
         }
     };
-
-    namespace s {
-        using string = std::string;
-        using char_t = string::value_type;
-        using cell_t = mc::cell_t<string>;
-        using row_t = mc::row_t<string>;
-        using column_t = mc::column_t<string>;
-        using table_t = mc::table_t<string>;
-        using csv = csv<string>;
-        using mc::operator<<;
-    }
-
-    namespace w {
-        using string = std::wstring;
-        using char_t = string::value_type;
-        using cell_t = mc::cell_t<string>;
-        using row_t = mc::row_t<string>;
-        using column_t = mc::column_t<string>;
-        using table_t = mc::table_t<string>;
-        using csv = csv<string>;
-        using mc::operator<<;
-    }
+    
+//    template<>
+//    class csv<std::string>;
+//    template<>
+//    class csv<std::wstring>;
 }
 
 #endif /* CSV_H */

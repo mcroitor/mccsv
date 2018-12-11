@@ -3,17 +3,12 @@
 #include "csv.h"
 
 using string = std::string;
-using char_t = string::value_type;
-using cell_t = mc::cell_t<string>;
-using row_t = mc::row_t<string>;
-using column_t = mc::column_t<string>;
-using table_t = mc::table_t<string>;
 using csv = mc::csv<string>;
 using mc::operator <<;
 
 int main(){
 	csv _csv;
-	table_t table = _csv.read("example.csv", ';');
+	auto table = _csv.read("example.csv", ';');
 	
 	std::cout << "csv data readed: " << std::endl;
 	std::cout << "\theader: " << table.header() << std::endl;

@@ -14,18 +14,14 @@
  */
 
 using string = std::string;
-using char_t = string::value_type;
-using cell_t = mc::cell_t<string>;
-using row_t = mc::row_t<string>;
-using column_t = mc::column_t<string>;
-using table_t = mc::table_t<string>;
-using mc::operator <<;
+typedef mc::csv<string> csv;
+using mc::operator<<;
 
 void testRead() {
     std::string filename = "example.csv";
-    char_t separator = ';';
-    mc::csv<string> _csv;
-    table_t table = _csv.read(filename, separator);
+    auto separator = ';';
+    csv _csv;
+    auto table = _csv.read(filename, separator);
     if (table.nr_columns() != 3) {
         std::cout << "%TEST_FAILED% time=0 testname=testCsv (csvtest) message=invalid columns number" << std::endl;
         return;
@@ -41,9 +37,9 @@ void testRead() {
 
 void testClear() {
     std::string filename = "example.csv";
-    char_t separator = ';';
-    mc::csv<string> _csv;
-    table_t table = _csv.read(filename, separator);
+    auto separator = ';';
+    csv _csv;
+    auto table = _csv.read(filename, separator);
     table.clear();
     if (table.nr_columns() != 0 || table.nr_rows() != 0) {
         std::cout << "%TEST_FAILED% time=0 testname=testClear (csvtest) message=invalid data clearing" << std::endl;
@@ -54,10 +50,10 @@ void testClear() {
 
 void testHeader() {
     std::string filename = "example.csv";
-    char_t separator = ';';
-    mc::csv<string> _csv;
-    table_t table = _csv.read(filename, separator);
-    row_t result = table.header();
+    auto separator = ';';
+    csv _csv;
+    auto table = _csv.read(filename, separator);
+    auto result = table.header();
     if (result.size() != 3) {
         std::cout << "%TEST_FAILED% time=0 testname=testHeader (csvtest) message=invalid columns number" << std::endl;
         std::cout << "result.size() = " << result.size() << std::endl;
@@ -73,10 +69,10 @@ void testHeader() {
 void testRow() {
     size_t p0 = 1;
     std::string filename = "example.csv";
-    char_t separator = ';';
-    mc::csv<string> _csv;
-    table_t table = _csv.read(filename, separator);
-    row_t result = table.row(p0);
+    auto separator = ';';
+    csv _csv;
+    auto table = _csv.read(filename, separator);
+    auto result = table.row(p0);
     if (result.size() != 3) {
         std::cout << "%TEST_FAILED% time=0 testname=testRow (csvtest) message=invalid number of elements in row" << std::endl;
         return;
@@ -92,10 +88,10 @@ void testRow() {
 void testColumn() {
     string header_name = "second";
     std::string filename = "example.csv";
-    char_t separator = ';';
-    mc::csv<string> _csv;
-    table_t table = _csv.read(filename, separator);
-    column_t result = table.column(header_name);
+    auto separator = ';';
+    csv _csv;
+    auto table = _csv.read(filename, separator);
+    auto result = table.column(header_name);
     if (result.size() != 4) {
         std::cout << "%TEST_FAILED% time=0 testname=testColumn (csvtest) message=invalid number of elements in column" << std::endl;
         return;
@@ -111,10 +107,10 @@ void testColumn() {
 void testColumn2() {
     size_t column_index = 0;
     std::string filename = "example.csv";
-    char_t separator = ';';
-    mc::csv<string> _csv;
-    table_t table = _csv.read(filename, separator);
-    column_t result = table.column(column_index);
+    auto separator = ';';
+    csv _csv;
+    auto table = _csv.read(filename, separator);
+    auto result = table.column(column_index);
     if (result.size() != 4) {
         std::cout << "%TEST_FAILED% time=0 testname=testColumn2 (csvtest) message=invalid number of elements in column" << std::endl;
         return;
@@ -131,10 +127,10 @@ void testCell() {
     string column_name = "first";
     size_t row_index = 2;
     std::string filename = "example.csv";
-    char_t separator = ';';
-    mc::csv<string> _csv;
-    table_t table = _csv.read(filename, separator);
-    cell_t result = table.cell(column_name, row_index);
+    auto separator = ';';
+    csv _csv;
+    auto table = _csv.read(filename, separator);
+    auto result = table.cell(column_name, row_index);
     if (result != "7") {
         std::cout << "%TEST_FAILED% time=0 testname=testCell (csvtest) message=invalid cell reading" << std::endl;
         std::cout << result << std::endl;
@@ -147,10 +143,10 @@ void testCell2() {
     size_t column_index = 2;
     size_t row_index = 3;
     std::string filename = "example.csv";
-    char_t separator = ';';
-    mc::csv<string> _csv;
-    table_t table = _csv.read(filename, separator);
-    cell_t result = table.cell(column_index, row_index);
+    auto separator = ';';
+    csv _csv;
+    auto table = _csv.read(filename, separator);
+    auto result = table.cell(column_index, row_index);
     if (result != "12") {
         std::cout << "%TEST_FAILED% time=0 testname=testCell2 (csvtest) message=invalid cell reading" << std::endl;
         std::cout << result << std::endl;
@@ -161,9 +157,9 @@ void testCell2() {
 
 void testNr_columns() {
     std::string filename = "example.csv";
-    char_t separator = ';';
-    mc::csv<string> _csv;
-    table_t table = _csv.read(filename, separator);
+    auto separator = ';';
+    csv _csv;
+    auto table = _csv.read(filename, separator);
     size_t result = table.nr_columns();
     if (result != 3) {
         std::cout << "%TEST_FAILED% time=0 testname=testNr_columns (csvtest) message=nr of columns error" << std::endl;
@@ -174,9 +170,9 @@ void testNr_columns() {
 
 void testNr_rows() {
     std::string filename = "example.csv";
-    char_t separator = ';';
-    mc::csv<string> _csv;
-    table_t table = _csv.read(filename, separator);
+    auto separator = ';';
+    csv _csv;
+    auto table = _csv.read(filename, separator);
     size_t result = table.nr_rows();
     if (result != 4) {
         std::cout << "%TEST_FAILED% time=0 testname=testNr_rows (csvtest) message=nr of rows error" << std::endl;
