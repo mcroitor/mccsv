@@ -79,8 +79,12 @@ namespace mc {
         void insert(const cell_type& str) {
             values_.push_back(str);
         }
+        
+        void erase(size_t index){
+            values_.erase(values_.begin() + index);
+        }
     };
-    
+
     std::ostream& operator<<(std::ostream& out, const column_t<std::string>& column);
 
     std::wostream& operator<<(std::wostream& out, const column_t<std::wstring>& column);
@@ -171,8 +175,29 @@ namespace mc {
         }
 
         void insert_column(const column_type& column, size_t position) {
+            if(column.size() != nr_rows()){
+                throw std::out_of_range("incopatible column size, waiting " + 
+                        std::to_string(nr_rows()) + 
+                        ", received " + 
+                        std::to_string(column.size()) + 
+                        " elements");
+            }
             header_.insert(columns_.begin() + position, column.name());
             columns_.insert(columns_.begin() + position, column);
+        }
+
+        // remove all columns with name <b>column_name</b>
+
+        void delete_column(const string& column_name) {
+            std::remove(header_.begin(), header_.end(), column_name);
+            std::remove(columns_.begin(), columns_.end(), [column_name](const column_type & column) {
+                return column.name() == column_name;
+            });
+        }
+
+        void delete_column(size_t position) {
+            header_.erase(header_.begin() + position);
+            columns_.erase(columns_.begin() + position);
         }
         // slow method!
 
@@ -185,6 +210,15 @@ namespace mc {
         void insert_row(const row_type& row, size_t position) {
             for (size_t index = 0; index != nr_columns(); ++index) {
                 columns_[index].insert(row[index], position);
+            }
+        }
+
+        void delete_row(size_t position) {
+            if(nr_rows() < position){
+                throw std::out_of_range("remove out of range error!");
+            }
+            for (size_t index = 0; index != nr_columns(); ++index) {
+                columns_[index].erase(position);
             }
         }
 

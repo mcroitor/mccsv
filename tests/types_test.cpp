@@ -82,5 +82,25 @@ TEST_CASE("init variables", "[types]") {
             REQUIRE(aTable.header()[0] == "first column");
             REQUIRE(aTable.header()[1] == "second column");
         }
+        
+        SECTION("insert columns and rows"){
+            table_t aTable({"first column", "second column"});
+
+            REQUIRE(aTable.nr_columns() == 2);
+            REQUIRE(aTable.nr_rows() == 0);
+            REQUIRE(aTable.header()[0] == "first column");
+            REQUIRE(aTable.header()[1] == "second column");
+            
+            aTable.insert_row(table_t::row_type({"value11", "value12"}));
+            aTable.insert_row(table_t::row_type({"value21", "value22"}));
+            REQUIRE(aTable.nr_columns() == 2);
+            REQUIRE(aTable.nr_rows() == 2);
+            
+            REQUIRE_THROWS(aTable.insert_column(table_t::column_type("throw column")));
+            REQUIRE_NOTHROW(aTable.insert_column(table_t::column_type("nothrow column", {"", ""})));
+            REQUIRE(aTable.nr_columns() == 3);
+            REQUIRE(aTable.nr_rows() == 2);           
+            
+        }
     }
 }
