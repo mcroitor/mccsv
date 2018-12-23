@@ -189,10 +189,12 @@ namespace mc {
         // remove all columns with name <b>column_name</b>
 
         void delete_column(const string& column_name) {
-            std::remove(header_.begin(), header_.end(), column_name);
-            std::remove(columns_.begin(), columns_.end(), [column_name](const column_type & column) {
+            auto it = std::remove(header_.begin(), header_.end(), column_name);
+            header_.erase(it, header_.end());
+            it = std::remove(columns_.begin(), columns_.end(), [column_name](const column_type & column) {
                 return column.name() == column_name;
             });
+            columns_.erase(it, columns_.end());
         }
 
         void delete_column(size_t position) {
