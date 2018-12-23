@@ -176,7 +176,7 @@ namespace mc {
 
         void insert_column(const column_type& column, size_t position) {
             if(column.size() != nr_rows()){
-                throw std::out_of_range("incopatible column size, waiting " + 
+                throw std::out_of_range("incompatible column size, waiting " + 
                         std::to_string(nr_rows()) + 
                         ", received " + 
                         std::to_string(column.size()) + 
