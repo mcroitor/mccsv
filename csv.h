@@ -31,7 +31,7 @@ namespace mc {
             // TODO #: check correctness of CSV
             table_t table;
             string_t line;
-            std::basic_ifstream<char_t> fin(filename);
+            std::basic_ifstream<char_t> fin(filename.c_str());
             std::getline(fin, line);
             row_t row = explode(line, separator);
             for (string_t header_name : row) {
@@ -45,7 +45,7 @@ namespace mc {
         }
 
         void write(const table_t& table, const string_t& filename, const char_t separator, const bool has_header = true) const {
-            std::basic_ofstream<char_t> fout(filename);
+            std::basic_ofstream<char_t> fout(filename.c_str());
             if (has_header == true) {
                 fout << mc::implode(table.header(), separator) << std::endl;
             }
@@ -55,10 +55,10 @@ namespace mc {
         }
     };
     
-//    template<>
-//    class csv<std::string>;
-//    template<>
-//    class csv<std::wstring>;
+    template
+    class csv<std::string>;
+    template
+    class csv<std::wstring>;
 }
 
 #endif /* CSV_H */
